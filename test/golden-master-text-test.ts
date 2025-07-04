@@ -24,3 +24,9 @@ const updatedItems: Item[] = rose.updateQuality();
 for (const item of updatedItems) {
     console.log(`${item.name} ${item.sellIn} ${item.quality}`);
 }
+
+const updatedItemsAgain: Item[] = rose.updateQuality();
+
+for (const item of updatedItemsAgain) {
+    console.log(`${item.name} ${item.sellIn} ${item.quality}`);
+}

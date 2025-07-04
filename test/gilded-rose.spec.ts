@@ -1,152 +1,165 @@
 const {expect} = require('chai');
 import { Item, GildedRose } from '../app/gilded-rose';
 
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item('foo', 0, 0) ]);
+const itemNames = {
+    AgedBrie: "Aged Brie",
+    Sulfuras: "Sulfuras",
+    Foo: "foo",
+    ConjuredFoo: "Conjured foo",
+    ConjuredCake: "Conjured Mana Cake",
+    SulfurasLegendary: "Sulfuras, Hand of Ragnaros",
+    Backstage: "Backstage passes"
+}
+
+describe('Normal object', function () {
+    it('Quality at 0', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Foo, 0, 0) ]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('foo');
+        expect(items[0].name).to.equal(itemNames.Foo);
         expect(items[0].sellIn).to.equal(-1);
         expect(items[0].quality).to.equal(0);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("foo", 10, 40)]);
+    it('Usual case', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Foo, 10, 40)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('foo');
+        expect(items[0].name).to.equal(itemNames.Foo);
         expect(items[0].sellIn).to.equal(9);
         expect(items[0].quality).to.equal(39);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("foo", 0, 40)]);
+    it('Degrading twice as fast', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Foo, 0, 40)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('foo');
+        expect(items[0].name).to.equal(itemNames.Foo);
         expect(items[0].sellIn).to.equal(-1);
         expect(items[0].quality).to.equal(38);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("foo", 3, 50)]);
+    it('Usual case 2', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Foo, 3, 50)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('foo');
+        expect(items[0].name).to.equal(itemNames.Foo);
         expect(items[0].sellIn).to.equal(2);
         expect(items[0].quality).to.equal(49);
     });
 });
 
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Aged Brie", 3, 5)]);
+describe('Aged Brie', function () {
+    it('Usual case', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.AgedBrie, 3, 5)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Aged Brie');
+        expect(items[0].name).to.equal(itemNames.AgedBrie);
         expect(items[0].sellIn).to.equal(2);
         expect(items[0].quality).to.equal(6);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Aged Brie", 3, 50)]);
+    it('Max quality', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.AgedBrie, 3, 50)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Aged Brie');
+        expect(items[0].name).to.equal(itemNames.AgedBrie);
         expect(items[0].sellIn).to.equal(2);
         expect(items[0].quality).to.equal(50);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Aged Brie", 0, 5)]);
+    it('Negative SellIn', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.AgedBrie, 0, 5)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Aged Brie');
+        expect(items[0].name).to.equal(itemNames.AgedBrie);
         expect(items[0].sellIn).to.equal(-1);
         expect(items[0].quality).to.equal(6);
     });
 });
 
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Backstage passes", 5, 5)]);
+describe('Backstage passes', function () {
+    it('< 5', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Backstage, 5, 5)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Backstage passes');
+        expect(items[0].name).to.equal(itemNames.Backstage);
         expect(items[0].sellIn).to.equal(4);
         expect(items[0].quality).to.equal(8);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Backstage passes", 10, 5)]);
+    it('< 10', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Backstage, 10, 5)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Backstage passes');
+        expect(items[0].name).to.equal(itemNames.Backstage);
         expect(items[0].sellIn).to.equal(9);
         expect(items[0].quality).to.equal(7);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Backstage passes", 20, 5)]);
+    it('>= 10', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Backstage, 20, 5)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Backstage passes');
+        expect(items[0].name).to.equal(itemNames.Backstage);
         expect(items[0].sellIn).to.equal(19);
         expect(items[0].quality).to.equal(6);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Backstage passes", 20, 50)]);
+    it('Max quality', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Backstage, 20, 50)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Backstage passes');
+        expect(items[0].name).to.equal(itemNames.Backstage);
         expect(items[0].sellIn).to.equal(19);
         expect(items[0].quality).to.equal(50);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Backstage passes", 0, 5)]);
+    it('Expired', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Backstage, 0, 5)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Backstage passes');
+        expect(items[0].name).to.equal(itemNames.Backstage);
         expect(items[0].sellIn).to.equal(-1);
         expect(items[0].quality).to.equal(0);
     });
 });
 
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Sulfuras, Hand of Ragnaros", 0, 80)]);
+describe('Sulfuras', function () {
+    it('The one and only', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.SulfurasLegendary, 0, 80)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Sulfuras, Hand of Ragnaros');
+        expect(items[0].name).to.equal(itemNames.SulfurasLegendary);
+        expect(items[0].sellIn).to.equal(0);
+        expect(items[0].quality).to.equal(80);
+    });
+    it('The second one...?', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Sulfuras, 0, 80)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].name).to.equal(itemNames.Sulfuras);
         expect(items[0].sellIn).to.equal(0);
         expect(items[0].quality).to.equal(80);
     });
 });
 
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Conjured Mana Cake", 1, 10)]);
+describe('Conjured', function () {
+    it('Usual case', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.ConjuredCake, 1, 10)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Conjured Mana Cake');
+        expect(items[0].name).to.equal(itemNames.ConjuredCake);
         expect(items[0].sellIn).to.equal(0);
         expect(items[0].quality).to.equal(8);
     });
-});
-
-describe('Gilded Rose', function () {
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item("Conjured Mana Cake", 0, 10)]);
+    it('Negative sellIn', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.ConjuredCake, 0, 10)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('Conjured Mana Cake');
+        expect(items[0].name).to.equal(itemNames.ConjuredCake);
         expect(items[0].sellIn).to.equal(-1);
         expect(items[0].quality).to.equal(6);
+    });
+    it('Another conjured item', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.ConjuredFoo, 0, 10)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].name).to.equal(itemNames.ConjuredFoo);
+        expect(items[0].sellIn).to.equal(-1);
+        expect(items[0].quality).to.equal(6);
+    });
+});
+
+describe('Multiple iterations', function () {
+    it('Conjure', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.ConjuredCake, 1, 10)]);
+        gildedRose.updateQuality()
+        const items = gildedRose.updateQuality()
+        expect(items[0].name).to.equal(itemNames.ConjuredCake)
+        expect(items[0].sellIn).to.equal(-1)
+        expect(items[0].quality).to.equal(4)
+    });
+    it('Will expire', function() {
+        const gildedRose = new GildedRose([ new Item(itemNames.Backstage, 1, 5)]);
+        gildedRose.updateQuality()
+        const items = gildedRose.updateQuality();
+        expect(items[0].name).to.equal(itemNames.Backstage);
+        expect(items[0].sellIn).to.equal(-1);
+        expect(items[0].quality).to.equal(0);
     });
 });
